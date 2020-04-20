@@ -117,11 +117,11 @@ The input validation in combination with error handling provides 1 ... n errors 
 ## Create JUnit test cases for REST Controller methods
 1. Add dependency for RestAssured to project pom file:
 <pre><code>
-	<dependency>
-		<groupId>io.rest-assured</groupId>
-		<artifactId>rest-assured</artifactId>
-		<scope>test</scope>
-	</dependency>
+	&lt;dependency&gt;
+		&lt;groupId&gt;io.rest-assured&lt;/groupId&gt;
+		&lt;artifactId&gt;rest-assured&lt;/artifactId&gt;
+		&lt;scope&gt;test&lt;/scope&gt;
+	&lt;/dependency&gt;
 </pre></code>
 
 2. Create customer bean class with same attributes for test purpose only in test package
@@ -129,7 +129,7 @@ The input validation in combination with error handling provides 1 ... n errors 
 3. Enhance JUnit class 
 <pre><code>
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	 private static long identifier; //State between test methods
+	private static long identifier; //State between test methods
 </pre></code>
 <br> Check Docu [RestAssured (Behaviour driven testing) how to create REST test cases in Given-When-Then structure](http://rest-assured.io/)
 <br> Create JUnit test methods - each per REST controller method (happy case)
