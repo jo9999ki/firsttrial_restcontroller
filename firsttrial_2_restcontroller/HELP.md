@@ -22,14 +22,9 @@ The input validation in combination with error handling provides 1 ... n errors 
 * Error bean
 <br> create new class ErrorResponse
 <br> add class annotation @XmlRootElement(name = "error")
-<br> create class attributes
-<pre><code>
-		String type for type, message and parameter
-		List<String> type for details;
-</pre></code><br>
+<br> create class attributes (String type for type, message and parameter + List<String> type for details)
 <br> create getters and setters
-<br> create constructor for all attribute
-
+<br> create constructor for all attributes
 
 * Errors bean
 <br> create new class ErrorsResponse
@@ -119,3 +114,27 @@ The input validation in combination with error handling provides 1 ... n errors 
 <br> http://localhost:8080/customers (getAllcustomersWithPagination)
 <br> http://localhost:8080/customers/3 (getcustomerById)
 		
+## Create JUnit test cases for REST Controller methods
+1. Add dependency for RestAssured to project pom file:
+<pre><code>
+	<dependency>
+		<groupId>io.rest-assured</groupId>
+		<artifactId>rest-assured</artifactId>
+		<scope>test</scope>
+	</dependency>
+</pre></code>
+
+2. Create customer bean class with same attributes for test purpose only in test package
+
+3. Enhance JUnit class 
+<pre><code>
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
+	 private static long identifier; //State between test methods
+</pre></code>
+<br> Check Docu [RestAssured (Behaviour driven testing) how to create REST test cases in Given-When-Then structure](http://rest-assured.io/)
+<br> Create JUnit test methods - each per REST controller method (happy case)
+<br> Create JUNIT test methods for input validation of mandatory and length constraints (compare source code examples)
+<br> Run JUnit tests
+	
+## If familiar with Postman create single REST test cases
+
