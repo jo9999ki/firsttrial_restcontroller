@@ -43,13 +43,21 @@ The input validation in combination with error handling provides 1 ... n errors 
 <pre><code>
 			@ExceptionHandler(Exception.class)
 			public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-			
+			(...)
+</pre></code>
+<pre><code>			
 			@ExceptionHandler(RecordNotFoundException.class)
 			public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
-			
+			(...)
+			}
+</pre></code>			
+<pre><code> 
 			 @Override //Override Method in ResponseEntityExceptionHandler
 			protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {   
-			
+			(...)
+			}
+</pre></code>
+<pre><code>			
 			Example for unspecified exception
 			@ExceptionHandler(Exception.class)
 			public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
@@ -59,7 +67,7 @@ The input validation in combination with error handling provides 1 ... n errors 
 				errors.add(new ErrorResponse("50000", "Server Error", null, details));
 				return new ResponseEntity(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-</pre></code><br>
+</pre></code>
 
 ## Create REST controller class
 * create new restcontroller package
