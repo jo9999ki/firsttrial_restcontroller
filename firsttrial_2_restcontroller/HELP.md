@@ -36,26 +36,26 @@ The input validation in combination with error handling provides 1 ... n errors 
 <br> create list attribute for type ErrorResponse: List<ErrorResponse> errorList = new ArrayList<>();
 <br> create getter and setter methods			
 
-* Create customized class for error handling
+2.  Create customized class for error handling
 <br> create class CustomExceptionHandler extending Spring ResponseEntityExceptionHandler class
 <br> Add class annotations @SuppressWarnings({"unchecked","rawtypes"}) and @ControllerAdvice
 <br> Add single method per exception type to create output as errors list
 <pre><code>
 			@ExceptionHandler(Exception.class)
-			public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+			public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
 			(...)
 </pre></code>
 <br>
 <pre><code>			
 			@ExceptionHandler(RecordNotFoundException.class)
-			public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
+			public final ResponseEntity&lt;Object&gt; handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
 			(...)
 			}
 </pre></code>			
 <br>
 <pre><code> 
 			 @Override //Override Method in ResponseEntityExceptionHandler
-			protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {   
+			protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {   
 			(...)
 			}
 </pre></code>
@@ -63,11 +63,11 @@ The input validation in combination with error handling provides 1 ... n errors 
 <pre><code>			
 			Example for unspecified exception
 			@ExceptionHandler(Exception.class)
-			public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-				List<String> details = new ArrayList<>();
+			public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
+				List&lt;String&gt; details = new ArrayList&lt;&gt;();
 				details.add(ex.getLocalizedMessage());
-				List<ErrorResponse> errors = new ArrayList<>();
-				errors.add(new ErrorResponse("50000", "Server Error", null, details));
+				List&lt;ErrorResponse&gt; errors = new ArrayList&lt;&gt;();
+				errors.add(new ErrorResponse(&quot;50000&quot;, &quot;Server Error&quot;, null, details));
 				return new ResponseEntity(errors, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 </pre></code>
