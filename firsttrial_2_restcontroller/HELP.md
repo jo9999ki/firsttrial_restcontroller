@@ -26,16 +26,15 @@ The input validation in combination with error handling provides 1 ... n errors 
 <pre><code>
 		String type for type, message and parameter
 		List<String> type for details;
-		create getters and setters
-		create constructor for all attribute
 </pre></code><br>
+<br> create getters and setters
+<br> create constructor for all attribute
+
 
 * Errors bean
-<pre><code>
-		create new class ErrorsResponse
-		create list attribute for type ErrorResponse: List<ErrorResponse> errorList = new ArrayList<>();
-		create getter and setter methods
-</pre></code><br>			
+<br> create new class ErrorsResponse
+<br> create list attribute for type ErrorResponse: List<ErrorResponse> errorList = new ArrayList<>();
+<br> create getter and setter methods			
 
 * Create customized class for error handling
 <br> create class CustomExceptionHandler extending Spring ResponseEntityExceptionHandler class
