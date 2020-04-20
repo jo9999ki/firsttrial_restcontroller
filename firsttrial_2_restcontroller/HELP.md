@@ -36,35 +36,35 @@ The input validation in combination with error handling provides 1 ... n errors 
 <br> Add class annotations @SuppressWarnings({"unchecked","rawtypes"}) and @ControllerAdvice
 <br> Add single method per exception type to create output as errors list
 <pre><code>
-			@ExceptionHandler(Exception.class)
-			public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
-			(...)
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
+	(...)
 </pre></code>
 <br>
 <pre><code>			
-			@ExceptionHandler(RecordNotFoundException.class)
-			public final ResponseEntity&lt;Object&gt; handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
-			(...)
-			}
+	@ExceptionHandler(RecordNotFoundException.class)
+	public final ResponseEntity&lt;Object&gt; handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
+	(...)
+	}
 </pre></code>			
 <br>
 <pre><code> 
-			 @Override //Override Method in ResponseEntityExceptionHandler
-			protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {   
-			(...)
-			}
+	 @Override //Override Method in ResponseEntityExceptionHandler
+	protected ResponseEntity&lt;Object&gt; handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {   
+	(...)
+	}
 </pre></code>
 <br>
 <pre><code>			
-			Example for unspecified exception
-			@ExceptionHandler(Exception.class)
-			public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
-				List&lt;String&gt; details = new ArrayList&lt;&gt;();
-				details.add(ex.getLocalizedMessage());
-				List&lt;ErrorResponse&gt; errors = new ArrayList&lt;&gt;();
-				errors.add(new ErrorResponse(&quot;50000&quot;, &quot;Server Error&quot;, null, details));
-				return new ResponseEntity(errors, HttpStatus.INTERNAL_SERVER_ERROR);
-			}
+	Example for unspecified exception
+	@ExceptionHandler(Exception.class)
+	public final ResponseEntity&lt;Object&gt; handleAllExceptions(Exception ex, WebRequest request) {
+		List&lt;String&gt; details = new ArrayList&lt;&gt;();
+		details.add(ex.getLocalizedMessage());
+		List&lt;ErrorResponse&gt; errors = new ArrayList&lt;&gt;();
+		errors.add(new ErrorResponse(&quot;50000&quot;, &quot;Server Error&quot;, null, details));
+		return new ResponseEntity(errors, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 </pre></code>
 <br>
 
@@ -73,40 +73,40 @@ The input validation in combination with error handling provides 1 ... n errors 
 * create new class CustomerController
 * Add class annotations
 <pre><code> 
-			@RestController
-			@RequestMapping("/customers") - includes base path for customer REST resource
+	@RestController
+	@RequestMapping("/customers") - includes base path for customer REST resource
 </pre></code><br>
 
 * Link functional service 
 <pre><code>
-			@Autowired
-			CustomerService service;
+	@Autowired
+	CustomerService service;
 </pre></code><br>
 
 * Add methods for customer REST resource, optional with sub path, (MIME type = JSON, if not explicitely specified), compare code example for details
 <pre><code>
-			@GetMapping()
-			public ResponseEntity<List<CustomerEntity>> getAllcustomersWithPagination(
-				@RequestParam(defaultValue = "0") Integer pageNo, 
-				@RequestParam(defaultValue = "10") Integer pageSize,
-				@RequestParam(defaultValue = "id") String sortBy
-				) {
-				--> Includes paging capability to avoid performance issues with growing record amount
-				
-			@GetMapping("/{id}")
-			public ResponseEntity<CustomerEntity> getcustomerById(@PathVariable("id") Long id) throws RecordNotFoundException {
+	@GetMapping()
+	public ResponseEntity<List<CustomerEntity>> getAllcustomersWithPagination(
+		@RequestParam(defaultValue = "0") Integer pageNo, 
+		@RequestParam(defaultValue = "10") Integer pageSize,
+		@RequestParam(defaultValue = "id") String sortBy
+		) {
+		--> Includes paging capability to avoid performance issues with growing record amount
+		
+	@GetMapping("/{id}")
+	public ResponseEntity<CustomerEntity> getcustomerById(@PathVariable("id") Long id) throws RecordNotFoundException {
 													
-			@GetMapping("/name/{name}")
-			public ResponseEntity<List<CustomerEntity>> getCustomersByLastNameLike(@PathVariable("name") Optional<String> name) { 
+	@GetMapping("/name/{name}")
+	public ResponseEntity<List<CustomerEntity>> getCustomersByLastNameLike(@PathVariable("name") Optional<String> name) { 
         
-			@PostMapping
-			public ResponseEntity<CustomerEntity> createOrUpdatecustomer(@Valid @RequestBody CustomerEntity customer) throws RecordNotFoundException {
-			--> Method is used for both record creation and update. This is a typical approach to combine both in HTTP POST method instead of 2 methods for creation (HTTP POST) and update (HTTP PUT)
-			--> See @Valid annotation for input bean validation
+	@PostMapping
+	public ResponseEntity<CustomerEntity> createOrUpdatecustomer(@Valid @RequestBody CustomerEntity customer) throws RecordNotFoundException {
+	--> Method is used for both record creation and update. This is a typical approach to combine both in HTTP POST method instead of 2 methods for creation (HTTP POST) and update (HTTP PUT)
+	--> See @Valid annotation for input bean validation
  
-			@DeleteMapping("/{id}")
-			public ResponseEntity deletecustomerById(@PathVariable("id") Long id) 
-															throws RecordNotFoundException {															
+	@DeleteMapping("/{id}")
+	public ResponseEntity deletecustomerById(@PathVariable("id") Long id) 
+													throws RecordNotFoundException {															
 </pre></code><br>
 <br> Implement content for the methods by reusing CustomerService methods
 
